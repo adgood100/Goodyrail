@@ -111,7 +111,7 @@
 			"</td><td id='nextArrivalDisplay'>" + moment(nextTrain).format("hh:mm A") +
 			"</td><td id='minutesAwayDisplay'>" + minUntilTrain + " minutes until arrival" +
 			"</td><td id='editbuttons'><button class='removeme' id=" + deletme + " data-indexNum=" + globalIndex + " title='Remove Train?'><div class='glyphicon glyphicon-trash'></div></button> " +
-			"<button onclick='editme()' class='editme' data-indexNum=" + globalIndex + " title='Edit Train?'><div class='glyphicon glyphicon-pencil'></div></button></td>");
+			"<button class='editme' data-indexNum=" + globalIndex + " title='Edit Train?'><div class='glyphicon glyphicon-pencil'></div></button></td>");
 
 		globalIndex++;
 
@@ -134,14 +134,12 @@
 
 	
 	//When you click on the edit button, it asks you for each item again and sets it to the database
-//	$(document.body).click('.editme', function(){
-//	$(".editme").click(function(){
-	function editme() {
-		var x ='';
-		x = $(".editme");
-		var numx = x.attr('data-indexNum');
+	$(document.body).on('click', '.editme', function(){
 		
-		console.log("This is the value of numx in .editme:..." + numx);
+		var x = $(this).attr("data-indexNum");
+		var num = x;
+		
+		console.log("This is the value of num in .editme:..." + num);
 
 		name = prompt("What do you want the name to be?");
 		destination = prompt("What do you want the destination to be?");
@@ -149,7 +147,7 @@
 		frequency = prompt("How often does it arrive? (in minutes)");
 
 
-		database.ref().child(trainIDs[numx]).set({
+		database.ref().child(trainIDs[num]).set({
 			name: name,
 			destination: destination,
 			firstTrainTime: firstTrainTime,
@@ -158,8 +156,8 @@
 
 		//Must reload to show the database changes on the page
 		location.reload();
-	}
 
+});
 	
 	//When you click on the remove buttons, it gets the row it's on and deletes it from the database
 	$(document.body).on('click', '.removeme', function(){
