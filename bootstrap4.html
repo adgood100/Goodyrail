@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+<!-- Bootstrap version 4 
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!--- Bootstrap version 4
+-->
+</head>
+<body>
+
+<div class="container">
+  <h2>Dynamic Tabs</h2>
+  <p>To make the tabs toggleable, add the data-toggle="tab" attribute to each link. Then add a .tab-pane class with a unique ID for every tab and wrap them inside a div element with class .tab-content.</p>
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Timetable &amp; Booking</a></li>
+    <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+    <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+    <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <h3>HOME</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+	<div id="js-tab-auskunft" data-tab="tab1" class="tab-content big initial-teaser active clearfix">
+    <h3 class="folding-control">Timetable &amp; booking</h3>
+    <div>
+      <form action="//reiseauskunft.bahn.de/bin/query.exe/en?" method="get" autocomplete="off">
+        <input type="hidden" name="revia" value="yes">
+        <input type="hidden" name="existOptimizePrice" value="1">
+        <input type="hidden" name="country" value="GBR">
+        <input type="hidden" name="dbkanal_007" value="L04_S02_D002_KIN0059_qf-bahn-svb-kl2_LZ03">
+        <input type="hidden" name="start" value="1">
+        <fieldset>
+          <div class="clearfix">
+            <div id="js-auskunft-icon-menu-favourites" class="icon-menu-wrapper">
+              <a href="#" class="js-icon favourite js-expand-tab-trigger" title="My routes"></a>
+              <div class="icon-menu hide js-icon-menu">
+                <ul class="hide"></ul>
+                <p>You do not have any saved routes. On the My GoodyRail portal, you can save and retrieve your favorite routes.</p>
+                <a class="link" href="https://fahrkarten.bahn.de/privatkunde/start/start.post?scope=meinedateneinstellungen&amp;lang=en&amp;country=DEU">Edit</a>
+              </div>
+            </div>
+            <div id="js-auskunft-autocomplete-to-append-to" class="input-wrapper with-swap pull-left">
+              <label class="label">from</label>
+              <input id="js-auskunft-autocomplete-from" type="text" class="text label-inside from-ab autocomplete js-expand-tab-trigger" placeholder="station/stop/address" name="S" data-type="S" data-form="auskunft" autocomplete="off">
+              <input id="js-auskunft-departure-point-tripleid" type="hidden" name="REQ0JourneyStopsSID" value="">
+            </div>
+            <a title="Switch stations" data-title="Switch stations" class="swap js-icon-swap">
+              <svg class="icon-swap">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/common/view/static/v8-dev/responsive/img/svg-sprites.svg#icon-swap"></use>
+              </svg>
+            </a>
+            <div class="input-wrapper with-swap pull-left">
+              <label class="label">to</label>
+              <input id="js-auskunft-autocomplete-to" type="text" class="text label-inside to-ab autocomplete js-expand-tab-trigger" placeholder="station/stop/address" name="Z" autocomplete="off">
+              <input id="js-auskunft-destination-point-tripleid" type="hidden" name="REQ0JourneyStopsZID" value="">
+            </div>
+            <a title="Open Information &amp; Booking" data-title="Close Information &amp; Booking" class="pull-right toggleTabBtn"></a>
+          </div>
+          <div class="fieldset-wrapper-inner clearfix">
+            <div class="date-wrapper pull-left">
+              <span title="Einen Tag früher" class="pull-left"></span>
+              <span title="Einen Tag später" class="pull-right"></span>
+              <input type="text" class="center-inline hasDatepicker" placeholder="Outward journey" name="date" id="dp1504547739603"><button type="button" class="ui-datepicker-trigger"></button>
+            </div>
+            <div id="js-auskunft-timeinput" class="time-wrapper pull-left">
+              <span title="Back to previous hour" class="pull-left js-time-button-earlier"></span>
+              <span title="Forward to next hour" class="pull-right js-time-button-later"></span>
+              <input type="text" class="center-inline" placeholder="Time" name="time">
+            </div>
+            <div class="pull-left">
+              <div class="radio pull-left">
+                <input id="radio-ts-depart" type="radio" name="timesel" value="depart" checked="">
+                <label for="radio-ts-depart" title="Departure">Dep</label>
+              </div>
+              <div class="radio pull-left">
+                <input id="radio-ts-arrive" type="radio" name="timesel" value="arrive">
+                <label for="radio-ts-arrive" title="Arrival">Arr</label>
+              </div>
+            </div>
+            <div class="js-not-enabled not-enabled enableable clearfix">
+              <div class="date-wrapper pull-left">
+                <span title="Einen Tag früher" class="pull-left"></span>
+                <span title="Einen Tag später" class="pull-right"></span>
+                <input type="text" class="center-inline hasDatepicker" placeholder="Return journey" name="returnDate" id="dp1504547739604"><button type="button" class="ui-datepicker-trigger"></button>
+              </div>
+              <div id="js-auskunft-timeinput-return" class="time-wrapper pull-left">
+                <span title="Back to previous hour" class="pull-left js-time-button-earlier"></span>
+                <input type="text" class="center-inline text" placeholder="Time" name="returnTime">
+                <span title="Forward to next hour" class="pull-right js-time-button-later"></span>
+              </div>
+              <div class="pull-left">
+                <div class="radio pull-left">
+                  <input id="radio-rts-depart" type="radio" name="returnTimesel" value="depart" checked="">
+                  <label for="radio-rts-depart" title="Departure">Dep</label>
+                </div>
+                <div class="radio pull-left">
+                  <input id="radio-rts-arrive" type="radio" name="returnTimesel" value="arrive">
+                  <label for="radio-rts-arrive" title="Arrival">Arr</label>
+                </div>
+              </div>
+              <a title="Remove return journey" class="js-icon-reset delete pull-left"></a>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="checkbox">
+          <div class="fieldset-wrapper-inner clearfix">
+            <div class="checkbox pull-left">
+              <input type="checkbox" checked="" value="0" name="optimize" id="checkbox02">
+              <label for="checkbox02">Prefer fast connections</label>
+            </div>
+            <div class="checkbox pull-left">
+              <input type="checkbox" value="1016" name="journeyProducts" id="checkbox01">
+              <label for="checkbox01">Local transport only</label>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="travelers">
+          <div id="js-auskunft-icon-menu-profil" class="icon-menu-wrapper">
+            <a href="#" class="js-icon icon-wrapper profile-menu" title="My booking profiles"></a>
+            <div class="icon-menu hide js-icon-menu">
+                <ul class="hide"></ul>
+                <p>You do not have any saved booking profiles. On the My Bahn portal, you can save and retrieve your favourite booking profiles.</p>
+                <a class="link" href="https://fahrkarten.bahn.de/privatkunde/start/start.post?scope=meinedateneinstellungen&amp;lang=en&amp;country=DEU">Edit</a>
+            </div>
+          </div>
+          <div class="custom-select medium pull-left">
+            <select name="auskunft_travelers_number" class="numbertravelers dropdown">
+              <option value="1">1 traveller</option>
+              <option value="2">2 travellers</option>
+              <option value="3">3 travellers</option>
+              <option value="4">4 travellers</option>
+              <option value="5">5 travellers</option>
+              <option value="more">more than 5</option>
+            </select>
+          </div>
+          <div id="js-auskunft-hint-more-travelers" class="info-box pull-left hide">
+            <p>For groups of 6 or more passengers, we offer group saver fares.</p>
+            <a class="link pull-left" href="http://reiseauskunft.bahn.de/bin/query.exe/en?">Travel information for groups</a>
+          </div>
+          <div id="js-auskunft-travelers-select-1" class="clearfix js-st">
+            <div class="js-type custom-select medium pull-left">
+              <select name="tariffTravellerType.1" class="dropdown">
+                <option value="E">Adult</option>
+                
+                
+              <option value="F">Child aged 6 to 14</option></select>
+            </div>
+            <div class="js-reduction custom-select pull-left">
+              <select name="tariffTravellerReductionClass.1" class="dropdown">
+                <option value="0">No BahnCard</option>
+                <option value="2">BahnCard 25, 2nd class</option>
+                <option value="1">BahnCard 25, 1st class</option>
+                <option value="4">BahnCard 50, 2nd class</option>
+                <option value="3">BahnCard 50, 1st class</option>
+                <option value="14">SH-Card</option>
+                <option value="9">A - VORTEILScard (incl. RAILPLUS)</option>
+                <option value="15">CH - General-Abonnement</option>
+                <option value="10">CH - HalbtaxAbo (incl. RAILPLUS)</option>
+                <option value="11">CH - HalbtaxAbo (no RAILPLUS)</option>
+                <option value="12">NL - Voordeelurenabo (incl. RAILPLUS)</option>
+                <option value="13">NL - Voordeelurenabo (no RAILPLUS)</option>
+              </select>
+            </div>
+            <span class="tooltip info hide tooltipstered" data-content="#qf-tip-type-F"><span></span></span>
+          </div>
+          <div id="js-auskunft-travelers-select-2" class="clearfix js-st hide select-travelers">
+            <div class="js-type custom-select medium pull-left">
+              <select name="tariffTravellerType.2" class="dropdown" disabled="disabled">
+                <option value="E">Adult</option>
+                <option value="F">Child aged 6 to 14</option>
+                <option value="B">Child aged 0 to 5</option>
+              </select>
+            </div>
+            <div class="js-reduction custom-select pull-left">
+              <select name="tariffTravellerReductionClass.2" class="dropdown" disabled="disabled">
+                <option value="0">No BahnCard</option>
+                <option value="2">BahnCard 25, 2nd class</option>
+                <option value="1">BahnCard 25, 1st class</option>
+                <option value="4">BahnCard 50, 2nd class</option>
+                <option value="3">BahnCard 50, 1st class</option>
+                <option value="14">SH-Card</option>
+                <option value="9">A - VORTEILScard (incl. RAILPLUS)</option>
+                <option value="15">CH - General-Abonnement</option>
+                <option value="10">CH - HalbtaxAbo (incl. RAILPLUS)</option>
+                <option value="11">CH - HalbtaxAbo (no RAILPLUS)</option>
+                <option value="12">NL - Voordeelurenabo (incl. RAILPLUS)</option>
+                <option value="13">NL - Voordeelurenabo (no RAILPLUS)</option>
+              </select>
+            </div>
+            <span class="tooltip info hide tooltipstered" data-content="#qf-tip-type-F"><span></span></span>
+          </div>
+          <div id="js-auskunft-travelers-select-3" class="clearfix js-st hide select-travelers">
+            <div class="js-type custom-select medium pull-left">
+              <select name="tariffTravellerType.3" class="dropdown" disabled="disabled">
+                <option value="E">Adult</option>
+                <option value="F">Child aged 6 to 14</option>
+                <option value="B">Child aged 0 to 5</option>
+              </select>
+            </div>
+            <div class="js-reduction custom-select pull-left">
+              <select name="tariffTravellerReductionClass.3" class="dropdown" disabled="disabled">
+                <option value="0">No BahnCard</option>
+                <option value="2">BahnCard 25, 2nd class</option>
+                <option value="1">BahnCard 25, 1st class</option>
+                <option value="4">BahnCard 50, 2nd class</option>
+                <option value="3">BahnCard 50, 1st class</option>
+                <option value="14">SH-Card</option>
+                <option value="9">A - VORTEILScard (incl. RAILPLUS)</option>
+                <option value="15">CH - General-Abonnement</option>
+                <option value="10">CH - HalbtaxAbo (incl. RAILPLUS)</option>
+                <option value="11">CH - HalbtaxAbo (no RAILPLUS)</option>
+                <option value="12">NL - Voordeelurenabo (incl. RAILPLUS)</option>
+                <option value="13">NL - Voordeelurenabo (no RAILPLUS)</option>
+              </select>
+            </div>
+            <span class="tooltip info hide tooltipstered" data-content="#qf-tip-type-F"><span></span></span>
+          </div>
+          <div id="js-auskunft-travelers-select-4" class="clearfix js-st hide select-travelers">
+            <div class="js-type custom-select medium pull-left">
+              <select name="tariffTravellerType.4" class="dropdown" disabled="disabled">
+                <option value="E">Adult</option>
+                <option value="F">Child aged 6 to 14</option>
+                <option value="B">Child aged 0 to 5</option>
+              </select>
+            </div>
+            <div class="js-reduction custom-select pull-left">
+              <select name="tariffTravellerReductionClass.4" class="dropdown" disabled="disabled">
+                <option value="0">No BahnCard</option>
+                <option value="2">BahnCard 25, 2nd class</option>
+                <option value="1">BahnCard 25, 1st class</option>
+                <option value="4">BahnCard 50, 2nd class</option>
+                <option value="3">BahnCard 50, 1st class</option>
+                <option value="14">SH-Card</option>
+                <option value="9">A - VORTEILScard (incl. RAILPLUS)</option>
+                <option value="15">CH - General-Abonnement</option>
+                <option value="10">CH - HalbtaxAbo (incl. RAILPLUS)</option>
+                <option value="11">CH - HalbtaxAbo (no RAILPLUS)</option>
+                <option value="12">NL - Voordeelurenabo (incl. RAILPLUS)</option>
+                <option value="13">NL - Voordeelurenabo (no RAILPLUS)</option>
+              </select>
+            </div>
+            <span class="tooltip info hide tooltipstered" data-content="#qf-tip-type-F"><span></span></span>
+          </div>
+          <div id="js-auskunft-travelers-select-5" class="clearfix js-st hide select-travelers">
+            <div class="js-type custom-select medium pull-left">
+              <select name="tariffTravellerType.5" class="dropdown" disabled="disabled">
+                <option value="E">Adult</option>
+                <option value="F">Child aged 6 to 14</option>
+                <option value="B">Child aged 0 to 5</option>
+              </select>
+            </div>
+            <div class="js-reduction custom-select pull-left">
+              <select name="tariffTravellerReductionClass.5" class="dropdown" disabled="disabled">
+                <option value="0">No BahnCard</option>
+                <option value="2">BahnCard 25, 2nd class</option>
+                <option value="1">BahnCard 25, 1st class</option>
+                <option value="4">BahnCard 50, 2nd class</option>
+                <option value="3">BahnCard 50, 1st class</option>
+                <option value="14">SH-Card</option>
+                <option value="9">A - VORTEILScard (incl. RAILPLUS)</option>
+                <option value="15">CH - General-Abonnement</option>
+                <option value="10">CH - HalbtaxAbo (incl. RAILPLUS)</option>
+                <option value="11">CH - HalbtaxAbo (no RAILPLUS)</option>
+                <option value="12">NL - Voordeelurenabo (incl. RAILPLUS)</option>
+                <option value="13">NL - Voordeelurenabo (no RAILPLUS)</option>
+              </select>
+            </div>
+            <span class="tooltip info hide tooltipstered" data-content="#qf-tip-type-F"><span></span></span>
+          </div>
+        </fieldset>
+        <fieldset class="radio">
+          <div class="fieldset-wrapper-inner clearfix">
+            <div class="radio pull-left">
+              <input id="radio07" class="js-class" type="radio" name="tariffClass" value="1">
+              <label for="radio07" title="1st class">1st class</label>
+            </div>
+            <div class="radio pull-left">
+              <input id="radio08" class="js-class" type="radio" name="tariffClass" value="2" checked="">
+              <label for="radio08" title="2nd class">2nd class</label>
+            </div>
+          </div>
+        </fieldset>
+        <input type="hidden" value="DB-HYBRID" name="rtMode">
+        <fieldset class="js-submit">
+          <div class="fieldset-wrapper-inner clearfix">
+            <a href="http://reiseauskunft.bahn.de/bin/query.exe/en?rit=yes" class="link pull-left">Seat only (no ticket)</a>
+            <input type="submit" class="btn pull-right js-submit-btn" title="" value="Search">
+            <input type="submit" class="btn grey pull-right" title="" value="Further options">
+          </div>
+        </fieldset>
+      <input type="hidden" name="externRequest" value="yes"><input type="hidden" name="HWAI" value="JS!js=yes!ajax=yes!"></form>
+    </div>
+  </div>
+    <div id="menu1" class="tab-pane fade">
+      <h3>Menu 1</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>Menu 2</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>Menu 3</h3>
+      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
