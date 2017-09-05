@@ -17,9 +17,8 @@
 
 
 
-$(document).ready(function() {
-//	var fb = new Firebase("https://itsatrain.firebaseio.com/");
-	
+//$(document).ready(function() {
+
 	/* global firebase */
 
 // Initialize Firebase
@@ -37,6 +36,7 @@ $(document).ready(function() {
 
 // Create a variable to reference the database
 	var database = firebase.database();
+	var dbkey = database.key;
 
 
 // --------------------------------------------------------------
@@ -55,7 +55,7 @@ $(document).ready(function() {
 	$('#currentTime').html("The time is now: " + currentTime);
 
 	//When you add a train to the database
-	$('#addTrain').on('click', function() {
+	$('#addTrain').click(function() {
 		console.log("Entering my-form block:...")
 		name = $('#nameinput').val().trim();
 		console.log("This is the value of name:..." + name);
@@ -67,11 +67,6 @@ $(document).ready(function() {
 		console.log("This is the value of frequency:..." + frequency);
 
 		// Save new value to Firebase
-//  database.ref().set({
-//    clickCount: clickCounter
-//  });
-		
-		
 		
 		database.ref().push({
 			name: name,
@@ -83,38 +78,6 @@ $(document).ready(function() {
 		//Reload needed for the removal to work on last element
 		location.reload();
 		return false;
-	})
-
-	//When you click on the remove buttons, it gets the row it's on and deletes it from the database
-	$(document.body).on('click', '.remove', function(){
-
-		var num = $(this).attr('data-indexNum');
-		database.ref().child(trainIDs[num]).remove();
-
-		//Must reload to show the database changes on the page
-		location.reload();
-	});
-
-	//When you click on the edit button, it asks you for each item again and sets it to the database
-	$(document.body).on('click', '.edit', function(){
-
-		var num = $(this).attr('data-indexNum');
-
-		name = prompt("What do you want the name to be?");
-		destination = prompt("What do you want the destination to be?");
-		firstTrainTime = prompt("What time did the first train arrive? (HH:mm - military time)");
-		frequency = prompt("How often does it arrive? (in minutes)");
-
-
-		database.ref().child(trainIDs[num]).set({
-			name: name,
-			destination: destination,
-			firstTrainTime: firstTrainTime,
-			frequency: frequency
-		});
-
-		//Must reload to show the database changes on the page
-		location.reload();
 	});
 
 	//Will display changes when there are children added to the database
@@ -131,14 +94,15 @@ $(document).ready(function() {
 		var remainder = diffTime % snapshot.val().frequency;
 		var minUntilTrain = snapshot.val().frequency - remainder;
 		var nextTrain = moment().add(minUntilTrain, "minutes");
+		var deletme = "ridme-" + globalIndex;
 
-		console.log("Train Name: " + snapshot.val().name);
-		console.log("Destination: " + snapshot.val().destination);
-		console.log("First Train: " + snapshot.val().firstTrainTime);
-		console.log("Frequency: " + snapshot.val().frequency);
-		console.log("Next Train Time: " + moment(nextTrain).format("hh:mm A"));
-		console.log("Minutes Until: " + minUntilTrain);
-		console.log("====================");
+//		console.log("Train Name: " + snapshot.val().name);
+//		console.log("Destination: " + snapshot.val().destination);
+//		console.log("First Train: " + snapshot.val().firstTrainTime);
+//		console.log("Frequency: " + snapshot.val().frequency);
+//		console.log("Next Train Time: " + moment(nextTrain).format("hh:mm A"));
+//		console.log("Minutes Until: " + minUntilTrain);
+//		console.log("====================");
 
 
 		$('#display').append("<tr><td id='nameDisplay'>" + snapshot.val().name +
@@ -146,8 +110,8 @@ $(document).ready(function() {
 			"</td><td id='frequencyDisplay'>" + "Every " + snapshot.val().frequency + " mins" +
 			"</td><td id='nextArrivalDisplay'>" + moment(nextTrain).format("hh:mm A") +
 			"</td><td id='minutesAwayDisplay'>" + minUntilTrain + " minutes until arrival" +
-			"</td><td id='editbuttons'><button class='remove' data-indexNum=" + globalIndex + " title='Remove Train?'><div class='glyphicon glyphicon-trash'></div></button> " +
-			"<button class='edit' data-indexNum=" + globalIndex + " title='Edit Train?'><div class='glyphicon glyphicon-pencil'></div></button></td>");
+			"</td><td id='editbuttons'><button class='removeme' id=" + deletme + " data-indexNum=" + globalIndex + " title='Remove Train?'><div class='glyphicon glyphicon-trash'></div></button> " +
+			"<button onclick='editme()' class='editme' data-indexNum=" + globalIndex + " title='Edit Train?'><div class='glyphicon glyphicon-pencil'></div></button></td>");
 
 		globalIndex++;
 
@@ -163,9 +127,52 @@ $(document).ready(function() {
 
         dataSnapshot.forEach(
             function(childSnapshot) {
-                trainIDs[indexofTrains++] = childSnapshot.key();
+                trainIDs[indexofTrains++] = childSnapshot.key;
             }
         );
     });
 
+	
+	//When you click on the edit button, it asks you for each item again and sets it to the database
+//	$(document.body).click('.editme', function(){
+//	$(".editme").click(function(){
+	function editme() {
+		var x ='';
+		x = $(".editme");
+		var numx = x.attr('data-indexNum');
+		
+		console.log("This is the value of numx in .editme:..." + numx);
+
+		name = prompt("What do you want the name to be?");
+		destination = prompt("What do you want the destination to be?");
+		firstTrainTime = prompt("What time did the first train arrive? (HH:mm - military time)");
+		frequency = prompt("How often does it arrive? (in minutes)");
+
+
+		database.ref().child(trainIDs[numx]).set({
+			name: name,
+			destination: destination,
+			firstTrainTime: firstTrainTime,
+			frequency: frequency
+		});
+
+		//Must reload to show the database changes on the page
+		location.reload();
+	}
+
+	
+	//When you click on the remove buttons, it gets the row it's on and deletes it from the database
+	$(document.body).on('click', '.removeme', function(){
+
+		var y = $(this).attr("data-indexNum");
+		var num = y;
+				
+		console.log("This is the value of num in .removeme:..." + num);		
+		database.ref().child(trainIDs[num]).remove();
+
+		//Must reload to show the database changes on the page
+		location.reload();
+//	}
 });
+	
+//});	
